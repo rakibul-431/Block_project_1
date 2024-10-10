@@ -1,28 +1,56 @@
 {% extends 'index.html' %}
+{% load static %}
 {% block element %}
+<div class="d-flex fles-wrap p-5">
+<div class="col-6">
+  <h1>Welcome to the django blog project</h1>
+ <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi provident aut illo sint, dolorem corrupti deserunt, commodi quos totam excepturi voluptatibus tempora repudiandae amet! Consequatur delectus maiores quis, dolore assumenda neque doloremque, reprehenderit non, excepturi perspiciatis fuga nihil laboriosam fugit deserunt inventore esse. Eum atque quos doloribus impedit neque assumenda, earum distinctio dolor iure adipisci numquam eos corporis saepe. Molestias porro quia reprehenderit placeat, quo praesentium eligendi sapiente quidem dignissimos eius optio nemo, dicta reiciendis iure incidunt quae ducimus tempora expedita fugiat dolore magnam quaerat. Vitae, in atque nulla fugit repellat nemo, rerum impedit soluta, accusantium voluptatem animi consequatur saepe.</p>
+</div>
+<div class=" col-6 px-5">
+  <img style="width: 400px;" src="{% static 'blog.jpeg' %}" alt="blog picture">
+</div>
+
+</div>
 
 
-<div class="row d-flex flex-wrap justify-content-center px-5 pt-5" >
-    {% for itm in data %}
-    <div class="col-sm-3">
-      <div class="card mx-2">
-        <div class="card-body">
-                <h5 class="card-title">{{itm.title}}</h5>
-                <p class="card-text">{{itm.content}}</p>
-                <h5>Author Name : {{itm.author.name}}</h3>
-                <p>Category :{% for i in itm.category.all %}
-                    <button class="btn btn-light"><p>{{i.categori}}</p></button>
-                   {% endfor %}
-                </p>
-                <a href="{% url 'post_edit' itm.id %}" class="btn btn-primary">edit</a>
-                <a href="{% url 'post_delete' itm.id %}" class="btn btn-danger">Delete</a>
-        </div>
-      </div>
+
+
+<div class="d-flex fles-wrap p-4">
+  <div class="col-2 p-5 bg-light">
+    <h5>All Categories</h6>
+    {% for d in data %}
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+      <label class="form-check-label" for="exampleRadios1">
+        <a class='text-decoration-none text-dark' href="{% url 'category_slug_post' d.slug %}">{{d.categori}}</a>
+      </label>
     </div>
     {% endfor %}
-</div>    
 
+  </div>
+  <div class="col-10 p-3">
+    <h4>{{form | length}} result found</h4>
+    <div class="row d-flex flex-wrap  px-2 pt-5">
+      {% for itm in form %}
+      <div class="col-sm-3">
+        <div class="card mx-2">
+          <div class="card-body">
+            <h5 class="card-title">{{itm.title}}</h5>
+            <p class="card-text">{{itm.content}}</p>
+            <h5>Author Name : {{itm.author.first_name}}</h3>
+              <p>Category :{% for i in itm.category.all %}
+                <button class="btn btn-light">
+                  <p>{{i.categori}}</p>
+                </button>
+                {% endfor %}
+              </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 
- {%endblock%}
+</div>
 
-
+{%endblock%}

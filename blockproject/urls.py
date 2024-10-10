@@ -6,8 +6,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name="homepage"),
+    path('category/<slug:category_slug>/',views.home,name="category_slug_post"),
     path('author/',include('author.urls')),
     path('categorys/',include('categories.urls')),
     path('post/',include('post.urls')),
-    path('profiles/',include('profiles.urls')),
 ]

@@ -1,7 +1,8 @@
 from django.db import models
 
 # Create your models here.
-class categories(models.Model):
+class Category(models.Model):
     categori=models.CharField(max_length=30)
+    slug=models.SlugField(max_length=100,unique=True,null=True,blank=True)
     def __str__(self) -> str:
         return self.categori

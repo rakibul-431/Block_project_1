@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% block element%}
+<h1 align="center"><u>Welcome to your profile page </u></h1>
+<div class="d-flex flex-wrap">
+  <div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+      <!-- <li class="list-group-item"><h1>{{user}}</h1></li> -->
+      <li class="list-group-item"><a href="{% url 'profileUpdata' %}">prifile Change</a></li>
+      <li class="list-group-item"><a href="{% url 'passwordChange' %}">password change</a></li>
+    </ul>
+  </div>
+
+  {% for itm in data %}
+  <div class="col-sm-3">
+    <div class="card mx-2">
+      <div class="card-body">
+        <h5 class="card-title">{{itm.title}}</h5>
+        <p class="card-text">{{itm.content}}</p>
+        <h5>Author Name : {{itm.author.first_name}}</h3>
+          <p>Category :{% for i in itm.category.all %}
+            <button class="btn btn-light">
+              <p>{{i.categori}}</p>
+            </button>
+            {% endfor %}
+          </p>
+          <a href="{% url 'post_edit' itm.id %}" class="btn btn-primary">edit</a>
+          <a href="{% url 'post_delete' itm.id %}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{%endblock%}
