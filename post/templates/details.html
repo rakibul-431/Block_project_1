@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% block element %}
+<div class="col-12">
+    <div class="card mx-2">
+        <div class="card-body">
+            <img class="p-1 px-5" style="width: 800px; height: 500px;" src="{{post.image.url}}" alt="picture">
+            <h5 class="card-title">{{post.title}}</h5>
+            <p class="card-text">{{post.content}}</p>
+            <h5>Author Name : {{post.author.first_name}}</h3>
+                <p>Category :{% for i in post.category.all %}
+                    <button class="btn btn-light">
+                        <p>{{i.categori}}</p>
+                    </button>
+                    {%endfor%}
+                </p>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+     {{comment_form | crispy}}
+    </div>
+  </div>
+{% endblock %}

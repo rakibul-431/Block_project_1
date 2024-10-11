@@ -35,7 +35,8 @@
       <div class="col-sm-3">
         <div class="card mx-2">
           <div class="card-body">
-            <h5 class="card-title">{{itm.title}}</h5>
+            <img class="p-1" style="width: 190px; height: 150px;" src="{{itm.image.url}}" alt="picture">
+            <h5 class="card-title"><a href="{% url 'post_details' itm.pk %}" class="text-decoration-none text-dark">{{itm.title}}</a></h5>
             <p class="card-text">{{itm.content}}</p>
             <h5>Author Name : {{itm.author.first_name}}</h3>
               <p>Category :{% for i in itm.category.all %}

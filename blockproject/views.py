@@ -14,7 +14,6 @@ from post.models import post
 from categories.models import Category
 def home(request,category_slug=None):
     model=post.objects.all()
-    print(model)
     if category_slug is not None:
         category=Category.objects.get(slug=category_slug)
         model=post.objects.filter(category=category)

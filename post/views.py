@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
-from post.forms import creat_post
+from post.forms import creat_post,CommentForm
 from post import models
+from post.models import post
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView,UpdateView,DeleteView
+from django.views.generic import CreateView,UpdateView,DeleteView,DetailView
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -67,4 +68,27 @@ class deletepost(DeleteView):
     template_name='delete.html'
     success_url=reverse_lazy('profile_page')
     pk_url_kwarg='id'
+
+
+
+class DetailsView(DetailView):
+    model=models.post
+    template_name='details.html'
+    pk_url_kwarg='id'  
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs) 
+        post=self.objects
+        comments=post.comments
+        if self.request.method=='POST':
+            comment_form=forms.CommentForm(data=self.request.POST)
+            if comment_form.is_valid():
+                new_comment=comment_form.save(commit=False)
+                new_comment.post=post
+                new_comment.save()
+        else:
+            comment_form=forms.CommentForm()
+        context['comments']=comments
+        context['comment_form']=comment_form
+        return context
     
+
